@@ -4,7 +4,9 @@ import './App.css'
 const buttonsClasses = 'btn btn-primary w-75';
 
 function App() {
-  const [screen, setScreen] = useState('0')
+  const [number1, setNumber1] = useState('');
+  const [clearScreen, SetClearScreen] = useState(false);
+  const [screen, setScreen] = useState('0');
 
   const handleButtonClick = (e) => {
     const value = e.target.value;
@@ -13,6 +15,14 @@ function App() {
     }
   if (value === 'C') {
     setScreen('0');
+    return;
+  }
+  /// 
+  console.log({number1});
+  if (clearScreen) {
+    console.log('Cambia screen');
+    setScreen(value);
+    SetClearScreen(false);
     return;
   }
    if (screen === '0' && value !== '.') {
@@ -29,6 +39,20 @@ function App() {
     } 
   setScreen(screen.slice(0, -1));
     
+  }
+
+  const handleOperationButtonClick = (e) => {
+    const operator = e.target.value;
+    switch (operator) {
+      case '+':
+        setNumber1(screen);
+        console.log('Suma');
+        break;
+    
+      default:
+        break;
+    }
+    SetClearScreen(true);
   }
   return (
     <div className='app'>
@@ -95,6 +119,8 @@ function App() {
         type= "button"
          className={buttonsClasses}
          style={{height: "80px"}}
+         value='+'
+         onClick= {(e) => handleOperationButtonClick(e)}
          > + </button>
           </td>
       </tr>
